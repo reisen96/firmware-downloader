@@ -33,7 +33,7 @@ public class AppleDevice {
     public String toString() {
         long currentBoard = 1L;
         StringBuilder appleDeviceString = new StringBuilder();
-        appleDeviceString.append(MessageFormat.format("Device name: {0}\nIdentifier: {1}", name, identifier));
+        appleDeviceString.append(MessageFormat.format("Device name: {0}\nIdentifier: {1}\n", name, identifier));
         for (AppleBoard board : boards) {
             appleDeviceString.append(MessageFormat.format("Board {0}\n", currentBoard++));
             appleDeviceString.append(board.toString());
