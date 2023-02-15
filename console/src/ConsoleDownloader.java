@@ -7,7 +7,7 @@ public class ConsoleDownloader {
         FirmwareInformation firmwareInformation = new FirmwareInformation();
         System.out.println("Firmware Downloader");
         System.out.println("Firm list:");
-        firmwareList = firmwareInformation.getFirmwareListForDevice("iPhone15,2", false);
+        firmwareList = firmwareInformation.getFirmwareListForDevice("iPhone15,2", true);
         for (AppleFirmware firmware : firmwareList) {
             System.out.println(firmware);
         }

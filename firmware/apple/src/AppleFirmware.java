@@ -20,9 +20,9 @@ public class AppleFirmware {
 
     private URL url;
 
-    private LocalDateTime releasedate;
+    private String releasedate;
 
-    private LocalDateTime uploaddate;
+    private String uploaddate;
 
     private boolean signed;
 
@@ -90,19 +90,19 @@ public class AppleFirmware {
         this.url = url;
     }
 
-    public LocalDateTime getReleasedate() {
+    public String getReleasedate() {
         return releasedate;
     }
 
-    public void setReleasedate(LocalDateTime releasedate) {
+    public void setReleasedate(String releasedate) {
         this.releasedate = releasedate;
     }
 
-    public LocalDateTime getUploaddate() {
+    public String getUploaddate() {
         return uploaddate;
     }
 
-    public void setUploaddate(LocalDateTime uploaddate) {
+    public void setUploaddate(String uploaddate) {
         this.uploaddate = uploaddate;
     }
 
