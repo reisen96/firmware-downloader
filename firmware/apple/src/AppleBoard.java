@@ -1,3 +1,5 @@
+import java.text.MessageFormat;
+
 public class AppleBoard {
     private String boardconfig;
     private String platform;
@@ -34,5 +36,10 @@ public class AppleBoard {
 
     public void setBdid(Long bdid) {
         this.bdid = bdid;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("BoardConfig: {0}\nPlatform: {1}\nBDID: {2}\nCPID: {3}\n", boardconfig, platform, bdid, cpid);
     }
 }

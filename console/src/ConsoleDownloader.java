@@ -9,7 +9,8 @@ public class ConsoleDownloader {
         System.out.println("Firmware Downloader");
         System.out.println("Device list:");
         deviceList = firmwareInformation.getDeviceList();
-        System.out.println("1:");
-        System.out.println("2:");
+        for (AppleDevice device : deviceList) {
+            System.out.println(device);
+        }
     }
 }
