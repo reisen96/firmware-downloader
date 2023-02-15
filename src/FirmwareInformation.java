@@ -1,6 +1,5 @@
 import com.google.gson.Gson;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -14,11 +13,11 @@ import java.util.ArrayList;
 
 public class FirmwareInformation {
 
-    private URL apiURL;
+    private final URL apiURL;
 
-    private HttpClient infoClient;
+    private final HttpClient infoClient;
 
-    private Gson gson;
+    private final Gson gson;
 
     public FirmwareInformation() throws MalformedURLException {
         apiURL = new URL("https://api.ipsw.me/v4");
@@ -27,19 +26,17 @@ public class FirmwareInformation {
     }
 
     public ArrayList<AppleDevice> getDeviceList() throws IOException, InterruptedException {
-        AppleDevice appleDevice;
         JSONArray deviceListJson;
         ArrayList<AppleDevice> deviceList = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.ipsw.me/v4/devices"))
+                .uri(URI.create(apiURL + "/devices"))
                 .header("Accept", "application/json")
                 .GET()
                 .build();
         HttpResponse<String> response = infoClient.send(request, HttpResponse.BodyHandlers.ofString());
         deviceListJson = new JSONArray(response.body());
         for (Object deviceJson : deviceListJson) {
-            appleDevice = gson.fromJson(deviceJson.toString(), AppleDevice.class);
-            deviceList.add(appleDevice);
+            deviceList.add(gson.fromJson(deviceJson.toString(), AppleDevice.class));
         }
         return deviceList;
     }
