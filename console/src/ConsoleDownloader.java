@@ -4,9 +4,11 @@ import java.net.MalformedURLException;
 public class ConsoleDownloader {
 
     private final FirmwareInformation firmwareInformation;
+    private final FirmwareDownloader firmwareDownloader;
 
     public ConsoleDownloader() throws MalformedURLException {
         firmwareInformation = new FirmwareInformation();
+        firmwareDownloader = new FirmwareDownloader();
     }
 
     public void mainMenu() {
