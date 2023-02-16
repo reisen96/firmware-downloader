@@ -1,10 +1,20 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
 
 public class ConsoleDownloader {
+
+    private final FirmwareInformation firmwareInformation;
+
+    public ConsoleDownloader() throws MalformedURLException {
+        firmwareInformation = new FirmwareInformation();
+    }
+
+    public void mainMenu() {
+
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
-        FirmwareInformation firmwareInformation = new FirmwareInformation();
-        String model = "A1387";
-        System.out.println(firmwareInformation.getIdentifier(model));
+        ConsoleDownloader consoleDownloader = new ConsoleDownloader();
+        consoleDownloader.mainMenu();
     }
 }
