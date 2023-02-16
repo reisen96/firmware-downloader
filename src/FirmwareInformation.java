@@ -44,12 +44,24 @@ public class FirmwareInformation {
         ArrayList<AppleFirmware> firmwareList = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiURL + MessageFormat.format("/device/{0}?type=ipsw", identifier))).header("Accept", "application/json").GET().build();
         HttpResponse<String> response = infoClient.send(request, HttpResponse.BodyHandlers.ofString());
-        firmwareListJson = new JSONArray(new JSONObject(response.body()).getJSONArray("firmwares"));
-        for (Object firmwareJson : firmwareListJson) {
-            if (!signedOnly || (boolean) ((JSONObject) firmwareJson).get("signed"))
-                firmwareList.add(gson.fromJson(firmwareJson.toString(), AppleFirmware.class));
+        if (response.statusCode() == 200) {
+            firmwareListJson = new JSONArray(new JSONObject(response.body()).getJSONArray("firmwares"));
+            for (Object firmwareJson : firmwareListJson) {
+                if (!signedOnly || (boolean) ((JSONObject) firmwareJson).get("signed"))
+                    firmwareList.add(gson.fromJson(firmwareJson.toString(), AppleFirmware.class));
+            }
         }
         return firmwareList;
+    }
+
+    public String getIdentifier(String model) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiURL + MessageFormat.format("/model/{0}", model))).header("Accept", "application/json").GET().build();
+        HttpResponse<String> response = infoClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 200) {
+            return new JSONObject(response.body()).getString("identifier");
+        } else {
+            return "Invalid model";
+        }
     }
 
 

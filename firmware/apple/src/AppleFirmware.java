@@ -116,6 +116,6 @@ public class AppleFirmware {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Signed: {0}\nRelease Date: {1}\nUpload Date: {2}\nFilename: {3}\nFilesize: {4}\nSHA1sum: {5}\nIdentifier: {6}\n", signed, releasedate, uploaddate, url, filesize, sha1sum, identifier);
+        return MessageFormat.format("Signed: {0}\nRelease Date: {1}\nUpload Date: {2}\nURL: {3}\nFilesize: {4}\nSHA1sum: {5}\nIdentifier: {6}\n", signed, releasedate, uploaddate, url, filesize, sha1sum, identifier);
     }
 }
