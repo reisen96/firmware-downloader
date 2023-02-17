@@ -1,6 +1,5 @@
 import java.net.URL;
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
 
 public class AppleFirmware {
 
@@ -112,6 +111,10 @@ public class AppleFirmware {
 
     public void setSigned(boolean signed) {
         this.signed = signed;
+    }
+
+    public String getFileName() {
+        return url.getFile();
     }
 
     @Override
