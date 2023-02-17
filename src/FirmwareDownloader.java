@@ -14,9 +14,22 @@ public class FirmwareDownloader {
         defaultDownloadDestination = System.getProperty("user.home" + "Downloads");
     }
 
-    public void downloadFirmware(AppleFirmware firmwareToDownload) {
+    public void downloadFirmware(AppleFirmware firmwareToDownload, String downloadDestination) {
+        String destination = downloadDestination.isBlank() ? defaultDownloadDestination : downloadDestination;
+
+
 
     }
 
+    public ArrayList<Download> getDownloadList() {
+        return downloadList;
+    }
 
+    public String getDefaultDownloadDestination() {
+        return defaultDownloadDestination;
+    }
+
+    private void download(){
+
+    }
 }
