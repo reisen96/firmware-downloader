@@ -21,6 +21,7 @@ public class FirmwareDownloader {
         {
             newDownload.setId(Thread.currentThread().threadId());
             newDownload.setDestination(destination);
+            
 
 
 
