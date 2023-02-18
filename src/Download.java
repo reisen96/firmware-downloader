@@ -1,3 +1,5 @@
+import java.net.URL;
+
 public class Download {
 
     private Long id;
@@ -46,5 +48,9 @@ public class Download {
 
     public AppleFirmware getFirmware() {
         return firmware;
+    }
+
+    public URL getUrl() {
+        return firmware.getUrl();
     }
 }
