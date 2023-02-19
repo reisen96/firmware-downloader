@@ -1,4 +1,5 @@
 import java.net.URL;
+import java.text.MessageFormat;
 
 public class Download {
 
@@ -52,5 +53,10 @@ public class Download {
 
     public URL getUrl() {
         return firmware.getUrl();
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("File Name: {0}\nDestination: {1}\nDownload ID: {2}\nProgress: {3}%\n", fileName, destination, id, progress);
     }
 }
