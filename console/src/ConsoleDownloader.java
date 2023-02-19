@@ -18,7 +18,28 @@ public class ConsoleDownloader {
         firmwareDownloader = new FirmwareDownloader();
     }
 
+    public void deviceList() {
+
+    }
+
+    public void firmwareList() {
+
+    }
+
+    public void deviceIdentifier() {
+
+    }
+
+    public void downloadFirmware() {
+
+    }
+
+    public void downloadList() {
+
+    }
+
     public void mainMenu() {
+
 
 
     }
