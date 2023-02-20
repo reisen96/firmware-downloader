@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,6 +13,8 @@ public class ConsoleDownloader {
         DOWNLOAD,
         DOWNLOADLIST
     }
+
+    private int userInput;
 
     private final FirmwareInformation firmwareInformation;
     private final FirmwareDownloader firmwareDownloader;
@@ -33,7 +36,14 @@ public class ConsoleDownloader {
 
     }
 
-    public void downloadFirmware() {
+    public void downloadFirmware() throws IOException, InterruptedException {
+        String deviceIdentifier;
+        ArrayList<AppleFirmware> deviceFirmwareList;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter device identifier: ");
+        deviceIdentifier = scanner.nextLine();
+        deviceFirmwareList = firmwareInformation.getFirmwareListForDevice(deviceIdentifier, true);
+
 
 
     }
@@ -50,7 +60,7 @@ public class ConsoleDownloader {
                 }
             }
         }, 0, 1000);
-        System.in.read();
+        userInput = System.in.read();
         updateTimer.cancel();
     }
 
