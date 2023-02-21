@@ -39,13 +39,18 @@ public class ConsoleDownloader {
     public void downloadFirmware() throws IOException, InterruptedException {
         String deviceIdentifier;
         ArrayList<AppleFirmware> deviceFirmwareList;
+        int firmwareIndex = 1;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter device identifier: ");
         deviceIdentifier = scanner.nextLine();
         deviceFirmwareList = firmwareInformation.getFirmwareListForDevice(deviceIdentifier, true);
-
-
-
+        for (AppleFirmware firmware : deviceFirmwareList) {
+            System.out.println("Firmware number #" + firmwareIndex++);
+            System.out.print(firmware);
+        }
+        System.out.print("Enter firmware number to download: ");
+        firmwareIndex = scanner.nextInt() - 1;
+        firmwareDownloader.downloadFirmware(deviceFirmwareList.get(firmwareIndex), null);
     }
 
     public void downloadList() throws IOException {
@@ -64,12 +69,11 @@ public class ConsoleDownloader {
         updateTimer.cancel();
     }
 
-    public void mainMenu() {
-
-
+    public void mainMenu() throws IOException, InterruptedException {
+        downloadFirmware();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ConsoleDownloader consoleDownloader = new ConsoleDownloader();
         consoleDownloader.mainMenu();
     }
