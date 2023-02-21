@@ -8,7 +8,6 @@ import java.util.TimerTask;
 public class ConsoleDownloader {
     private enum MenuOption {
         DEVICELIST,
-        FIRMWARELIST,
         IDENTIFIER,
         DOWNLOAD,
         DOWNLOADLIST
@@ -26,12 +25,11 @@ public class ConsoleDownloader {
         downloadListUpdateInterval = 1000;
     }
 
-    public void deviceList() {
-
-    }
-
-    public void firmwareList() {
-
+    public void deviceList() throws IOException, InterruptedException {
+        ArrayList<AppleDevice> deviceList = firmwareInformation.getDeviceList();
+        for (AppleDevice device : deviceList) {
+            System.out.println(device);
+        }
     }
 
     public void deviceIdentifier() throws IOException, InterruptedException {
@@ -72,7 +70,7 @@ public class ConsoleDownloader {
     }
 
     public void mainMenu() throws IOException, InterruptedException {
-        deviceIdentifier();
+
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
