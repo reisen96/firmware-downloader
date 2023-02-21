@@ -7,14 +7,15 @@ import java.util.TimerTask;
 
 public class ConsoleDownloader {
     private enum MenuOption {
+        EXIT,
         DEVICELIST,
         IDENTIFIER,
         DOWNLOAD,
-        DOWNLOADLIST
+        DOWNLOADLIST,
+        INVALID,
     }
 
     private int userInput;
-
     private final FirmwareInformation firmwareInformation;
     private final FirmwareDownloader firmwareDownloader;
     private final int downloadListUpdateInterval;
@@ -23,6 +24,7 @@ public class ConsoleDownloader {
         firmwareInformation = new FirmwareInformation();
         firmwareDownloader = new FirmwareDownloader();
         downloadListUpdateInterval = 1000;
+        userInput = -1;
     }
 
     public void deviceList() throws IOException, InterruptedException {
@@ -70,7 +72,38 @@ public class ConsoleDownloader {
     }
 
     public void mainMenu() throws IOException, InterruptedException {
+        MenuOption userSelected;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            clearConsole();
+            System.out.println("Apple firmware downloader");
+            System.out.println("--------Main menu--------");
+            printMenu();
+            userInput = scanner.nextInt();
+            userSelected = userInput < MenuOption.values().length ? MenuOption.values()[userInput] : MenuOption.INVALID;
+            switch (userSelected) {
+                case DEVICELIST -> deviceList();
+                case IDENTIFIER -> deviceIdentifier();
+                case DOWNLOAD -> downloadFirmware();
+                case DOWNLOADLIST -> downloadList();
+                case EXIT -> {
+                    return;
+                }
+                default -> System.out.println("Invalid option");
+            }
+        }
+    }
 
+    private void printMenu() {
+        System.out.println(MenuOption.DEVICELIST.ordinal() + ". Device list");
+        System.out.println(MenuOption.IDENTIFIER.ordinal() + ". Get device identifier from model");
+        System.out.println(MenuOption.DOWNLOAD.ordinal() + ". Download a firmware");
+        System.out.println(MenuOption.DOWNLOADLIST.ordinal() + ". Download list");
+        System.out.println(MenuOption.EXIT.ordinal() + ". Exit program");
+    }
+
+    private void clearConsole() {
+        System.out.print("\033\143");
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
