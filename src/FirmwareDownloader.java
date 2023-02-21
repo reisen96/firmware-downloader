@@ -9,7 +9,7 @@ public class FirmwareDownloader {
 
     public FirmwareDownloader() {
         downloadList = new ArrayList<>();
-        defaultDownloadDestination = System.getProperty("user.home" + "Downloads");
+        defaultDownloadDestination = System.getProperty("user.home") + "/Downloads";
     }
 
     public void downloadFirmware(AppleFirmware firmwareToDownload, String downloadDestination) {

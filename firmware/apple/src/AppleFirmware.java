@@ -114,7 +114,7 @@ public class AppleFirmware {
     }
 
     public String getFileName() {
-        return url.getFile();
+        return url.toString().substring(url.toString().lastIndexOf('/') + 1);
     }
 
     @Override

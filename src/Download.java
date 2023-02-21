@@ -57,6 +57,6 @@ public class Download {
 
     @Override
     public String toString() {
-        return MessageFormat.format("File Name: {0}\nDestination: {1}\nDownload ID: {2}\nProgress: {3}%\n", fileName, destination, id, progress);
+        return MessageFormat.format("File Name: {0}\nDestination: {1}\nDownload ID: {2}\nProgress: {3}%\n", fileName, destination, id, progress * 100.0);
     }
 }
