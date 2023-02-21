@@ -71,6 +71,8 @@ public class ConsoleDownloader {
 
     public void mainMenu() throws IOException, InterruptedException {
         downloadFirmware();
+        while (true)
+            downloadList();
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

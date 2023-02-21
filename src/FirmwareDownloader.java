@@ -13,7 +13,7 @@ public class FirmwareDownloader {
     }
 
     public void downloadFirmware(AppleFirmware firmwareToDownload, String downloadDestination) {
-        String destination = downloadDestination.isBlank() ? defaultDownloadDestination : downloadDestination;
+        String destination = downloadDestination == null ? defaultDownloadDestination : downloadDestination;
         Download newDownload = new Download(firmwareToDownload);
         downloadList.add(newDownload);
         Runnable download = () ->
