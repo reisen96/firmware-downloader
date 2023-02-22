@@ -46,6 +46,10 @@ public class ConsoleDownloader {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter device identifier: ");
         deviceFirmwareList = firmwareInformation.getFirmwareListForDevice(scanner.nextLine(), true);
+        if (deviceFirmwareList.isEmpty()) {
+            System.out.println("No firmwares for device");
+            return;
+        }
         for (AppleFirmware firmware : deviceFirmwareList) {
             System.out.println("Firmware number #" + firmwareIndex++);
             System.out.print(firmware);
