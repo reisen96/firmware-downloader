@@ -40,6 +40,6 @@ public class AppleBoard {
 
     @Override
     public String toString() {
-        return MessageFormat.format("BoardConfig: {0}\nPlatform: {1}\nBDID: {2}\nCPID: {3}\n", boardconfig, platform, bdid, cpid);
+        return MessageFormat.format("BoardConfig: {0}\nPlatform: {1}\nBDID: 0x{2}\nCPID: 0x{3}\n", boardconfig, platform, Long.toHexString(bdid), Long.toHexString(cpid));
     }
 }

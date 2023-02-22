@@ -80,7 +80,7 @@ public class ConsoleDownloader {
             System.out.println("--------Main menu--------");
             printMenu();
             userInput = scanner.nextInt();
-            userSelected = userInput < MenuOption.values().length ? MenuOption.values()[userInput] : MenuOption.INVALID;
+            userSelected = userInput > -1 && userInput < MenuOption.values().length ? MenuOption.values()[userInput] : MenuOption.INVALID;
             switch (userSelected) {
                 case DEVICELIST -> deviceList();
                 case IDENTIFIER -> deviceIdentifier();
@@ -103,7 +103,8 @@ public class ConsoleDownloader {
     }
 
     private void clearConsole() {
-        System.out.print("\033\143");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
