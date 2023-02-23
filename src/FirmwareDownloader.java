@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Stack;
 
 public class FirmwareDownloader {
@@ -50,6 +51,16 @@ public class FirmwareDownloader {
 
     public String getDefaultDownloadDestination() {
         return defaultDownloadDestination;
+    }
+
+    public void cancelDownload(Long downloadID) {
+        for (Download download : downloadList) {
+            if (download.getId().equals(downloadID)) {
+                // Download threads!!!
+                download.setStatus(Download.DownloadStatus.CANCELED);
+                return;
+            }
+        }
     }
 
     public void clearDownloadList() {
