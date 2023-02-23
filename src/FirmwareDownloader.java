@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class FirmwareDownloader {
 
@@ -31,13 +32,12 @@ public class FirmwareDownloader {
                     newDownload.setProgress((double) currentFileSize / (double) completeFileSize);
                     outputStream.write(downloadedBytes, 0, currentlyRead);
                 }
+                newDownload.setStatus(Download.DownloadStatus.COMPLETED);
                 downloadedFile.close();
                 inputStream.close();
                 outputStream.close();
-            } catch (FileNotFoundException e) {
-                // Hey!
             } catch (IOException e) {
-                // Hey 2!
+                System.out.println(e.getMessage());
             }
         };
         Thread downloadThread = new Thread(download);
@@ -50,5 +50,18 @@ public class FirmwareDownloader {
 
     public String getDefaultDownloadDestination() {
         return defaultDownloadDestination;
+    }
+
+    public void clearDownloadList() {
+        Stack<Download> downloadsToRemove = new Stack<>();
+        for (Download download : downloadList) {
+            if (download.isCompleted() || download.isCanceled()) {
+                downloadsToRemove.push(download);
+            }
+        }
+        while (!downloadsToRemove.isEmpty()) {
+            downloadList.remove(downloadsToRemove.peek());
+            downloadsToRemove.pop();
+        }
     }
 }

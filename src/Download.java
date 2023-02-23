@@ -3,20 +3,24 @@ import java.text.MessageFormat;
 
 public class Download {
 
+    public enum DownloadStatus {
+        INPROGRESS,
+        CANCELED,
+        COMPLETED
+    }
+
     private Long id;
-
     private Double progress;
-
+    private DownloadStatus status;
     private final String fileName;
-
     private String destination;
-
     private final AppleFirmware firmware;
 
     public Download(AppleFirmware firmwareToDownload) {
         firmware = firmwareToDownload;
         fileName = firmware.getFileName();
         progress = 0.0;
+        status = DownloadStatus.INPROGRESS;
     }
 
     public Long getId() {
@@ -25,6 +29,14 @@ public class Download {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DownloadStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DownloadStatus status) {
+        this.status = status;
     }
 
     public Double getProgress() {
@@ -53,6 +65,14 @@ public class Download {
 
     public URL getUrl() {
         return firmware.getUrl();
+    }
+
+    public boolean isCompleted() {
+        return status == DownloadStatus.COMPLETED;
+    }
+
+    public boolean isCanceled() {
+        return status == DownloadStatus.CANCELED;
     }
 
     @Override
