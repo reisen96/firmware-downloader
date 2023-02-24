@@ -7,18 +7,23 @@ public class FirmwareDownloader {
     private final ArrayList<Download> downloadList;
     private final TreeMap<Long, DownloadTask> downloadTasks;
     private final String defaultDownloadDestination;
+    private Long downloadID;
 
     public FirmwareDownloader() {
         downloadList = new ArrayList<>();
         downloadTasks = new TreeMap<>();
         defaultDownloadDestination = System.getProperty("user.home") + "/Downloads";
+        downloadID = 0L;
     }
 
     public void downloadFirmware(AppleFirmware firmwareToDownload, String downloadDestination) {
         String destination = downloadDestination == null ? defaultDownloadDestination : downloadDestination;
         Download newDownload = new Download(firmwareToDownload);
-        Thread downloadThread = new Thread(new DownloadTask(newDownload, destination));
+        DownloadTask newDownloadTask = new DownloadTask(newDownload, destination);
+        Thread downloadThread = new Thread(newDownloadTask);
+        newDownload.setId(++downloadID);
         downloadList.add(newDownload);
+        downloadTasks.put(newDownload.getId(), newDownloadTask);
         downloadThread.start();
     }
 
