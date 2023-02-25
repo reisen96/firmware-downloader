@@ -15,10 +15,8 @@ import java.util.ArrayList;
 
 public class FirmwareInformation {
 
-    private final URL apiURL;
-
     private final HttpClient infoClient;
-
+    private final URL apiURL;
     private final Gson gson;
 
     public FirmwareInformation() throws MalformedURLException {

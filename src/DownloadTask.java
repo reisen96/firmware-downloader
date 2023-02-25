@@ -37,7 +37,7 @@ public class DownloadTask implements Runnable {
 
     public void stop() {
         downloaderThread.interrupt();
-        new File(download.getDestination() + download.getFileName()).delete();
+        new File(download.getFullPath()).delete();
         download.setStatus(Download.DownloadStatus.CANCELED);
     }
 }
