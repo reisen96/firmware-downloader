@@ -7,14 +7,14 @@ public class DownloadTask implements Runnable {
     private Thread downloaderThread;
 
     public DownloadTask(Download download, String destination) {
-        download.setDestination(destination + '/' + download.getFileName());
+        download.setDestination(destination);
         this.download = download;
     }
 
     @Override
     public void run() {
         downloaderThread = Thread.currentThread();
-        try (FileOutputStream downloadedFile = new FileOutputStream(download.getFileName())) {
+        try (FileOutputStream downloadedFile = new FileOutputStream(download.getFullPath())) {
             HttpURLConnection httpConnection = (HttpURLConnection) (download.getUrl().openConnection());
             BufferedInputStream inputStream = new BufferedInputStream(httpConnection.getInputStream());
             BufferedOutputStream outputStream = new BufferedOutputStream(downloadedFile, 1024);

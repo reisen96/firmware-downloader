@@ -9,12 +9,13 @@ public class Download {
         COMPLETED
     }
 
+    private final AppleFirmware firmware;
+    private final String fileName;
     private Long id;
     private Double progress;
     private DownloadStatus status;
-    private final String fileName;
     private String destination;
-    private final AppleFirmware firmware;
+
 
     public Download(AppleFirmware firmwareToDownload) {
         firmware = firmwareToDownload;
@@ -57,6 +58,10 @@ public class Download {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public String getFullPath() {
+        return destination + '/' + fileName;
     }
 
     public AppleFirmware getFirmware() {
