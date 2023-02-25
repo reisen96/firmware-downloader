@@ -15,10 +15,10 @@ public class ConsoleDownloader {
         INVALID,
     }
 
-    private int userInput;
     private final FirmwareInformation firmwareInformation;
     private final FirmwareDownloader firmwareDownloader;
     private final int downloadListUpdateInterval;
+    private int userInput;
 
     public ConsoleDownloader() throws MalformedURLException {
         firmwareInformation = new FirmwareInformation();

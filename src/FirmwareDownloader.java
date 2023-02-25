@@ -48,7 +48,7 @@ public class FirmwareDownloader {
         }
         while (!downloadsToRemove.isEmpty()) {
             downloadList.remove(downloadsToRemove.peek());
-            downloadsToRemove.pop();
+            downloadTasks.remove(downloadsToRemove.pop().getId());
         }
     }
 }

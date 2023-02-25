@@ -4,11 +4,13 @@ import java.net.HttpURLConnection;
 public class DownloadTask implements Runnable {
 
     private final Download download;
+    private final int bufferSize;
     private Thread downloaderThread;
 
     public DownloadTask(Download download, String destination) {
         download.setDestination(destination);
         this.download = download;
+        bufferSize = 1024;
     }
 
     @Override
@@ -17,28 +19,25 @@ public class DownloadTask implements Runnable {
         try (FileOutputStream downloadedFile = new FileOutputStream(download.getFullPath())) {
             HttpURLConnection httpConnection = (HttpURLConnection) (download.getUrl().openConnection());
             BufferedInputStream inputStream = new BufferedInputStream(httpConnection.getInputStream());
-            BufferedOutputStream outputStream = new BufferedOutputStream(downloadedFile, 1024);
-            byte[] downloadedBytes = new byte[1024];
+            BufferedOutputStream outputStream = new BufferedOutputStream(downloadedFile, bufferSize);
+            byte[] downloadedBytes = new byte[bufferSize];
             int completeFileSize = httpConnection.getContentLength(), currentFileSize = 0, currentlyRead;
-            while ((currentlyRead = inputStream.read(downloadedBytes, 0, 1024)) >= 0) {
+            while ((currentlyRead = inputStream.read(downloadedBytes, 0, bufferSize)) >= 0) {
                 currentFileSize += currentlyRead;
                 download.setProgress((double) currentFileSize / (double) completeFileSize);
                 outputStream.write(downloadedBytes, 0, currentlyRead);
             }
-            download.setStatus(Download.DownloadStatus.COMPLETED);
-            downloadedFile.close();
             inputStream.close();
             outputStream.close();
+            download.setStatus(Download.DownloadStatus.COMPLETED);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void stop() {
-        File incompleteFile;
         downloaderThread.interrupt();
-        incompleteFile = new File(download.getDestination() + download.getFileName());
-        incompleteFile.delete();
+        new File(download.getDestination() + download.getFileName()).delete();
         download.setStatus(Download.DownloadStatus.CANCELED);
     }
 }
