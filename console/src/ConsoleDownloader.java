@@ -12,6 +12,8 @@ public class ConsoleDownloader {
         IDENTIFIER,
         DOWNLOAD,
         DOWNLOADLIST,
+        CANCELDOWNLOAD,
+        CLEARLIST,
         INVALID,
     }
 
@@ -62,7 +64,7 @@ public class ConsoleDownloader {
     public void downloadList() throws IOException {
         Timer updateTimer = new Timer();
         ArrayList<Download> downloadList = firmwareDownloader.getDownloadList();
-        System.out.println("Press enter to return");
+        System.out.println("Press any key to return");
         updateTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -73,6 +75,13 @@ public class ConsoleDownloader {
         }, 0, downloadListUpdateInterval);
         userInput = System.in.read();
         updateTimer.cancel();
+    }
+
+    public void cancelDownload() {
+        ArrayList<Download> inProgressList = firmwareDownloader.getInProgressDownloadList();
+
+
+
     }
 
     public void mainMenu() throws IOException, InterruptedException {
@@ -90,6 +99,8 @@ public class ConsoleDownloader {
                 case IDENTIFIER -> deviceIdentifier();
                 case DOWNLOAD -> downloadFirmware();
                 case DOWNLOADLIST -> downloadList();
+                case CANCELDOWNLOAD -> cancelDownload();
+                case CLEARLIST -> firmwareDownloader.clearDownloadList();
                 case EXIT -> {
                     return;
                 }
@@ -103,6 +114,8 @@ public class ConsoleDownloader {
         System.out.println(MenuOption.IDENTIFIER.ordinal() + ". Get device identifier from model");
         System.out.println(MenuOption.DOWNLOAD.ordinal() + ". Download a firmware");
         System.out.println(MenuOption.DOWNLOADLIST.ordinal() + ". Download list");
+        System.out.println(MenuOption.CANCELDOWNLOAD.ordinal() + ". Cancel a download in progress");
+        System.out.println(MenuOption.CLEARLIST.ordinal() + ". Clear download list");
         System.out.println(MenuOption.EXIT.ordinal() + ". Exit program");
     }
 

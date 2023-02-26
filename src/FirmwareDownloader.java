@@ -31,6 +31,16 @@ public class FirmwareDownloader {
         return downloadList;
     }
 
+    public ArrayList<Download> getInProgressDownloadList() {
+        ArrayList<Download> inProgressList = new ArrayList<>();
+        for (Download download : downloadList) {
+            if (download.isInProgress()) {
+                inProgressList.add(download);
+            }
+        }
+        return inProgressList;
+    }
+
     public String getDefaultDownloadDestination() {
         return defaultDownloadDestination;
     }

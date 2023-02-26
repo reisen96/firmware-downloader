@@ -76,6 +76,10 @@ public class Download {
         return status == DownloadStatus.COMPLETED;
     }
 
+    public boolean isInProgress() {
+        return status == DownloadStatus.INPROGRESS;
+    }
+
     public boolean isCanceled() {
         return status == DownloadStatus.CANCELED;
     }
