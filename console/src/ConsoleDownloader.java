@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
@@ -78,10 +79,14 @@ public class ConsoleDownloader {
     }
 
     public void cancelDownload() {
+        Scanner scanner = new Scanner(System.in);
         ArrayList<Download> inProgressList = firmwareDownloader.getInProgressDownloadList();
-
-
-
+        System.out.println("Enter download ID to cancel");
+        for (Download download : inProgressList) {
+            System.out.println(MessageFormat.format("ID: {0} File: {1}", download.getId(), download.getFileName()));
+        }
+        userInput = scanner.nextInt();
+        firmwareDownloader.cancelDownload((long) userInput);
     }
 
     public void mainMenu() throws IOException, InterruptedException {
