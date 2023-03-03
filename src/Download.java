@@ -72,6 +72,10 @@ public class Download {
         return firmware.getUrl();
     }
 
+    public Long getFileSize() {
+        return firmware.getFilesize();
+    }
+
     public boolean isCompleted() {
         return status == DownloadStatus.COMPLETED;
     }
