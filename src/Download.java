@@ -6,6 +6,7 @@ public class Download {
     public enum DownloadStatus {
         INPROGRESS,
         CANCELED,
+        FAILED,
         COMPLETED
     }
 
@@ -15,6 +16,7 @@ public class Download {
     private Double progress;
     private DownloadStatus status;
     private String destination;
+    private String logMessage;
 
 
     public Download(AppleFirmware firmwareToDownload) {
@@ -60,6 +62,14 @@ public class Download {
         this.destination = destination;
     }
 
+    public String getLogMessage() {
+        return logMessage;
+    }
+
+    public void setLogMessage(String logMessage) {
+        this.logMessage = logMessage;
+    }
+
     public String getFullPath() {
         return destination + '/' + fileName;
     }
@@ -86,6 +96,10 @@ public class Download {
 
     public boolean isCanceled() {
         return status == DownloadStatus.CANCELED;
+    }
+
+    public boolean isFailed() {
+        return status == DownloadStatus.FAILED;
     }
 
     @Override

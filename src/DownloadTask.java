@@ -35,8 +35,10 @@ public class DownloadTask implements Runnable {
                 new File(download.getFullPath()).delete();
                 download.setStatus(Download.DownloadStatus.CANCELED);
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException exception) {
+            active = false;
+            download.setStatus(Download.DownloadStatus.FAILED);
+            download.setLogMessage(exception.getMessage());
         }
     }
 
