@@ -46,7 +46,11 @@ public class FirmwareDownloader {
     }
 
     public void cancelDownload(Long downloadID) {
-        downloadTasks.get(downloadID).stop();
+        if (downloadTasks.containsKey(downloadID)) {
+            downloadTasks.get(downloadID).stop();
+        } else {
+            throw new RuntimeException("Invalid download ID");
+        }
     }
 
     public void clearDownloadList() {

@@ -89,32 +89,37 @@ public class ConsoleDownloader {
         firmwareDownloader.cancelDownload((long) userInput);
     }
 
-    public void mainMenu() throws IOException, InterruptedException {
+    public void mainMenu() {
         MenuOption userSelected;
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            clearConsole();
-            System.out.println("Apple firmware downloader");
-            System.out.println("--------Main menu--------");
-            printMenu();
-            userInput = scanner.nextInt();
-            userSelected = userInput > -1 && userInput < MenuOption.values().length ? MenuOption.values()[userInput] : MenuOption.INVALID;
-            switch (userSelected) {
-                case DEVICELIST -> deviceList();
-                case IDENTIFIER -> deviceIdentifier();
-                case DOWNLOAD -> downloadFirmware();
-                case DOWNLOADLIST -> downloadList();
-                case CANCELDOWNLOAD -> cancelDownload();
-                case CLEARLIST -> firmwareDownloader.clearDownloadList();
-                case EXIT -> {
-                    return;
+            try {
+                clearConsole();
+                printMenu();
+                userInput = scanner.nextInt();
+                userSelected = userInput > -1 && userInput < MenuOption.values().length ? MenuOption.values()[userInput] : MenuOption.INVALID;
+                switch (userSelected) {
+                    case DEVICELIST -> deviceList();
+                    case IDENTIFIER -> deviceIdentifier();
+                    case DOWNLOAD -> downloadFirmware();
+                    case DOWNLOADLIST -> downloadList();
+                    case CANCELDOWNLOAD -> cancelDownload();
+                    case CLEARLIST -> firmwareDownloader.clearDownloadList();
+                    case EXIT -> {
+                        return;
+                    }
+                    default -> System.out.println("Invalid option");
                 }
-                default -> System.out.println("Invalid option");
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
             }
+
         }
     }
 
     private void printMenu() {
+        System.out.println("Apple firmware downloader");
+        System.out.println("--------Main menu--------");
         System.out.println(MenuOption.DEVICELIST.ordinal() + ". Device list");
         System.out.println(MenuOption.IDENTIFIER.ordinal() + ". Get device identifier from model");
         System.out.println(MenuOption.DOWNLOAD.ordinal() + ". Download a firmware");
@@ -129,8 +134,12 @@ public class ConsoleDownloader {
         System.out.flush();
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        ConsoleDownloader consoleDownloader = new ConsoleDownloader();
-        consoleDownloader.mainMenu();
+    public static void main(String[] args) {
+        try {
+            ConsoleDownloader consoleDownloader = new ConsoleDownloader();
+            consoleDownloader.mainMenu();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }
