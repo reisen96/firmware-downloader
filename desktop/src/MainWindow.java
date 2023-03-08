@@ -7,7 +7,7 @@ public class MainWindow extends Application {
     @Override
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
